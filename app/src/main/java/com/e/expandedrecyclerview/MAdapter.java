@@ -1,6 +1,8 @@
 package com.e.expandedrecyclerview;
 
 import android.content.Context;
+import android.transition.AutoTransition;
+import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +10,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -40,9 +43,13 @@ public class MAdapter extends RecyclerView.Adapter<MAdapter.MyViewholder> {
             @Override
             public void onClick(View view) {
                 if(holder.expanded.getVisibility()==View.GONE){
+                    // the below line of code is only for delaying the transition it is not mandatory you can delete it
+                    TransitionManager.beginDelayedTransition(holder.cardView,new AutoTransition());
                     holder.moreLess.setImageResource(R.drawable.ic_expand_less);
                     holder.expanded.setVisibility(View.VISIBLE);
                 }else{
+                    // the below line of code is only for delaying the transition it is not mandatory you can delete it
+                    TransitionManager.beginDelayedTransition(holder.cardView,new AutoTransition());
                     holder.expanded.setVisibility(View.GONE);
                     holder.moreLess.setImageResource(R.drawable.ic_expand_more);
                 }
@@ -71,6 +78,7 @@ public class MAdapter extends RecyclerView.Adapter<MAdapter.MyViewholder> {
         public TextView title, rating,year,plot;
         public ImageButton moreLess;
         public ConstraintLayout expanded;
+        public CardView cardView;
 
         public MyViewholder(@NonNull View itemView) {
             super(itemView);
@@ -81,6 +89,7 @@ public class MAdapter extends RecyclerView.Adapter<MAdapter.MyViewholder> {
             plot=itemView.findViewById(R.id.plotTextView);
             moreLess=itemView.findViewById(R.id.more);
             expanded=itemView.findViewById(R.id.expandableLayout);
+            cardView=itemView.findViewById(R.id.cardview);
 
             // for another logic to expand layout
            /* moreLess.setOnClickListener(new View.OnClickListener() {
